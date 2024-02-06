@@ -3,7 +3,7 @@
     "path": "C:/Users/FelixBetancourt/OneDrive - H-E Parts International/Personal/DACSS-HEP/695N- Network/695NBlog_Felix_Betancourt/_quarto.yml",
     "project_path": "_quarto.yml",
     "type": "yaml",
-    "hash": "0",
+    "hash": "219421250",
     "contents": "",
     "dirty": false,
     "created": 1707230121801.0,
@@ -11,14 +11,16 @@
     "relative_order": 2,
     "properties": {
         "source_window_id": "",
-        "Source": "Source"
+        "Source": "Source",
+        "cursorPosition": "2,18",
+        "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1707230116,
+    "lastKnownWriteTime": 1707231634,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1707230116,
+    "last_content_update": 1707231634549,
     "read_only": false,
     "read_only_alternatives": []
 }
