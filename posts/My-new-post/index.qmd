@@ -3,7 +3,7 @@ title: "Test post for 695N DACSS course - Spring 2024"
 author: "Felix Betancourt"
 date: "2024-02-06"
 categories: [Social Network, Blog test]
-image: "image.jpg"
+image: "test-image.jpg"
 ---
 
 This is a post with executable code.
