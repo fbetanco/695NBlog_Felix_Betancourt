@@ -1,0 +1,14 @@
+{
+  "hash": "4ae3486a4075018ff184892b15d166a5",
+  "result": {
+    "markdown": "---\ntitle: \"695NBlog_Felix_Betancourt\"\nlisting:\n  contents: posts\n  sort: \"date desc\"\n  type: default\n  categories: true\n  sort-ui: false\n  filter-ui: false\npage-layout: full\ntitle-block-banner: true\n---\n\n\nThis is a Test for my 695N Blog\n\n\n::: {.cell}\n\n```{.r .cell-code}\neasy.sum <- 1+1\n\nprint(easy.sum)\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
