@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "695NBlog_Felix_Betancourt"
+  title: "Felix Betancourt's Blog - DACSS - UMASS"
   navbar:
     right:
       - about.qmd

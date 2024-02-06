@@ -1,13 +1,15 @@
 ---
-title: "Test post for 695N course"
-author: "Harlow Malloc"
+title: "Test post for 695N DACSS course - Spring 2024"
+author: "Felix Betancourt"
 date: "2024-02-06"
-categories: [news, code, analysis]
+categories: [Social Network, Blog test]
 image: "image.jpg"
 ---
 
 This is a post with executable code.
 
 ```{r}
-1 + 1
+easy.sum <- 1 + 1
+
+print(easy.sum)
 ```
