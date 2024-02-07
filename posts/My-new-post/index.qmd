@@ -13,3 +13,10 @@ easy.sum <- 1 + 1
 
 print(easy.sum)
 ```
+
+```{r}
+
+easy.div <- 2/6
+
+print(easy.div)
+```
