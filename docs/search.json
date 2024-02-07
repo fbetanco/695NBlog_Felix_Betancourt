@@ -4,7 +4,7 @@
     "href": "posts/My-new-post/index.html",
     "title": "Test post for 695N DACSS course - Spring 2024",
     "section": "",
-    "text": "This is a post with executable code.\n\neasy.sum &lt;- 1 + 1\n\nprint(easy.sum)\n\n[1] 2"
+    "text": "This is a post with executable code.\n\neasy.sum &lt;- 1 + 1\n\nprint(easy.sum)\n\n[1] 2\n\n\n\neasy.div &lt;- 2/6\n\nprint(easy.div)\n\n[1] 0.3333333"
   },
   {
     "objectID": "about.html",
