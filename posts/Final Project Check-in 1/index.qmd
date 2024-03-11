@@ -1,0 +1,39 @@
+---
+title: "Final Project Check-in #1 - 695N DACSS course - Spring 2024"
+author: "Felix Betancourt"
+date: "2024-03-10"
+categories: [Social Network, Final Project, Social Media]
+image: "fp-v1.jpg"
+---
+
+## Final Project Check-in #1
+
+### Introduction
+
+I am interested in understanding how social media users influence each other and create communities around specific topics.
+
+Specifically, I would like to explore this topic using Reddit to understand more in the context of domestic Politics.
+
+### Research Question
+
+In particular:
+
+1.  How are Reddit users connected/related in the "Politics" subreddit (r/politics), particularly when it comes to topics related to Biden and Trump?
+
+2.  Are there different communities (networks) for Biden and Trump?
+
+3.  Is there a relationship between "upvotes" for a post, number of comments and how it is related to the key users in the network?
+
+### Data
+
+1.  I will scrap data from the Politics subreddit (r/politics) using R (RedditExtractoR package)
+
+2.  This subreddit has 8.5 million users, so the data can be very extensive, so I'll scrap the post only for the last 3 months.
+
+3.  I can extract the usernames, votes, and titles of the posts, among other information like the time stamp and a tree of comments for the original post.
+
+4.  I'll use Text as Data methods to identify key words in the title of the posts (like Biden-Trump, or other topics of interest).
+
+### Expected Challenges:
+
+1.  With 8.5 million users I am not sure if I'll be able to identify most frequent users (maybe the data can bevery fragmented), but I'll try to identify users with certain number of posts or replies to narrow the network analysis.

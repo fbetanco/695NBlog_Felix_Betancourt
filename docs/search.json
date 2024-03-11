@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "posts/My-new-post/index.html",
-    "href": "posts/My-new-post/index.html",
-    "title": "Test post for 695N DACSS course - Spring 2024",
-    "section": "",
-    "text": "This is a post with executable code.\n\neasy.sum &lt;- 1 + 1\n\nprint(easy.sum)\n\n[1] 2\n\n\n\neasy.div &lt;- 2/6\n\nprint(easy.div)\n\n[1] 0.3333333"
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -18,6 +11,27 @@
     "href": "index.html",
     "title": "Felix Betancourt’s Blog - DACSS - UMASS",
     "section": "",
-    "text": "Test post for 695N DACSS course - Spring 2024\n\n\n\n\n\n\n\nSocial Network\n\n\nBlog test\n\n\n\n\n\n\n\n\n\n\n\nFeb 6, 2024\n\n\nFelix Betancourt\n\n\n\n\n\n\nNo matching items"
+    "text": "Final Project Check-in #1 - 695N DACSS course - Spring 2024\n\n\n\n\n\n\n\nSocial Network\n\n\nFinal Project\n\n\nSocial Media\n\n\n\n\n\n\n\n\n\n\n\nMar 10, 2024\n\n\nFelix Betancourt\n\n\n\n\n\n\n  \n\n\n\n\nTest post for 695N DACSS course - Spring 2024\n\n\n\n\n\n\n\nSocial Network\n\n\nBlog test\n\n\n\n\n\n\n\n\n\n\n\nFeb 6, 2024\n\n\nFelix Betancourt\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/Final Project Check-in 1/index.html",
+    "href": "posts/Final Project Check-in 1/index.html",
+    "title": "Final Project Check-in #1 - 695N DACSS course - Spring 2024",
+    "section": "",
+    "text": "I am interested in understanding how social media users influence each other and create communities around specific topics.\nSpecifically, I would like to explore this topic using Reddit to understand more in the context of domestic Politics.\n\n\n\nIn particular:\n\nHow are Reddit users connected/related in the “Politics” subreddit (r/politics), particularly when it comes to topics related to Biden and Trump?\nAre there different communities (networks) for Biden and Trump?\nIs there a relationship between “upvotes” for a post, number of comments and how it is related to the key users in the network?\n\n\n\n\n\nI will scrap data from the Politics subreddit (r/politics) using R (RedditExtractoR package)\nThis subreddit has 8.5 million users, so the data can be very extensive, so I’ll scrap the post only for the last 3 months.\nI can extract the usernames, votes, and titles of the posts, among other information like the time stamp and a tree of comments for the original post.\nI’ll use Text as Data methods to identify key words in the title of the posts (like Biden-Trump, or other topics of interest).\n\n\n\n\n\nWith 8.5 million users I am not sure if I’ll be able to identify most frequent users (maybe the data can bevery fragmented), but I’ll try to identify users with certain number of posts or replies to narrow the network analysis."
+  },
+  {
+    "objectID": "posts/Final Project Check-in 1/index.html#final-project-check-in-1",
+    "href": "posts/Final Project Check-in 1/index.html#final-project-check-in-1",
+    "title": "Final Project Check-in #1 - 695N DACSS course - Spring 2024",
+    "section": "",
+    "text": "I am interested in understanding how social media users influence each other and create communities around specific topics.\nSpecifically, I would like to explore this topic using Reddit to understand more in the context of domestic Politics.\n\n\n\nIn particular:\n\nHow are Reddit users connected/related in the “Politics” subreddit (r/politics), particularly when it comes to topics related to Biden and Trump?\nAre there different communities (networks) for Biden and Trump?\nIs there a relationship between “upvotes” for a post, number of comments and how it is related to the key users in the network?\n\n\n\n\n\nI will scrap data from the Politics subreddit (r/politics) using R (RedditExtractoR package)\nThis subreddit has 8.5 million users, so the data can be very extensive, so I’ll scrap the post only for the last 3 months.\nI can extract the usernames, votes, and titles of the posts, among other information like the time stamp and a tree of comments for the original post.\nI’ll use Text as Data methods to identify key words in the title of the posts (like Biden-Trump, or other topics of interest).\n\n\n\n\n\nWith 8.5 million users I am not sure if I’ll be able to identify most frequent users (maybe the data can bevery fragmented), but I’ll try to identify users with certain number of posts or replies to narrow the network analysis."
+  },
+  {
+    "objectID": "posts/My-new-post/index.html",
+    "href": "posts/My-new-post/index.html",
+    "title": "Test post for 695N DACSS course - Spring 2024",
+    "section": "",
+    "text": "This is a post with executable code.\n\neasy.sum &lt;- 1 + 1\n\nprint(easy.sum)\n\n[1] 2\n\n\n\neasy.div &lt;- 2/6\n\nprint(easy.div)\n\n[1] 0.3333333"
   }
 ]
