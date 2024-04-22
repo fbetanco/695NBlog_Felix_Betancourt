@@ -1,0 +1,191 @@
+---
+title: "Final Project FB - Scrapping Data and Exploratory Analysis"
+subtitle: "DACSS 695N Social Network Analysis"
+author: "E. Song/ Felix Betancourt"
+date: "April 19, 2024"
+format: 
+  html:
+    toc: true
+    toc-depth: 2
+    toc-title: Contents
+    toc-location: left
+    code-fold: false
+    html-math-method: katex
+    theme: flatly
+    smooth-scroll: true
+    link-external-icon: true
+    link-external-newwindow: true
+    citations-hover: true
+    footnotes-hover: true
+    font-size: 80%
+editor: visual
+---
+
+## Final Project - Post 2 - Scrapping and Exploring the data.
+### Introduction
+
+I am interested in understanding how social media users influence each other and create communities around specific topics.
+
+Specifically, I would like to explore this topic using Reddit to understand more in the context of domestic Politics.
+
+### Research Question
+
+In particular:
+
+1.  How are Reddit users connected/related in the "Politics" subreddit (r/politics), particularly when it comes to topics related to Biden and Trump?
+
+2.  Are there different communities (networks) for Biden and Trump?
+
+3.  Is there a relationship between "upvotes" for a post, number of comments and how it is related to the key users in the network?
+
+```{r}
+library(devtools)
+library(tidytext)
+library(dplyr)
+library(tidyverse)
+library(quanteda)
+library(quanteda.textplots)
+#library(RedditExtractoR)
+library(RCurl)
+```
+
+### Data
+
+1.  I scraped data from the Politics subreddit (r/politics) on April 2nd 2024 using R (RedditExtractoR package)
+
+The code below is inactive because it can take a lot of time to run it. So I already scrapped the data and saved the files as csv.
+
+```{r}
+#politics_reddit <- find_thread_urls(subreddit = "politics", sort_by="new", period = "day")
+
+#politics_reddit_comments <- get_thread_content(politics_reddit$url)
+
+#Separate the lists into different objects
+
+#politics_list1 <- politics_reddit_comments[[1]] 
+#politics_list2 <- politics_reddit_comments[[2]]
+
+### Saving all the lists in csv to avoid the need to scrap the data several times
+
+#write.csv(politics_reddit, file = "C:/Users/fbeta/OneDrive/1_UMASS_DACSS/695N - Social Network/R-695N-Network/Final Project/data/politics_comments1.csv")
+
+#write.csv(politics_list1, file = "C:/Users/fbeta/OneDrive/1_UMASS_DACSS/695N - Social Network/R-695N-Network/Final Project/data/politics_comments2.csv")
+
+#write.csv(politics_list2, file = "C:/Users/fbeta/OneDrive/1_UMASS_DACSS/695N - Social Network/R-695N-Network/Final Project/data/politics_comments3.csv")
+
+```
+
+2.  This subreddit has 8.5 million users, so the data can be very extensive, however the package used here (RedditExtractoR) pulled the last 1000 post only.
+
+```{r}
+getwd()
+politik1 <- read.csv("politics_comments1.csv")
+politik2 <- read.csv("politics_comments2.csv")
+politik3 <- read.csv("politics_comments3.csv")
+head(politik1)
+dim(politik1)
+head(politik2)
+dim(politik2)
+head(politik3)
+dim(politik3)
+
+```
+
+As we can see the the information in object "politik1" is redundant with the information in "politik2" so I won't use "politik1" at all. "Politik2" contain information about the title of the post, author, and some numeric information like up-down votes, number of replies to the post. "politik3" contain detailed comments on each post.
+
+I'll use Text as Data methods to identify key words in the title of the posts (like Biden-Trump, or other topics of interest).
+
+Let's do some data wrangling:
+
+```{r}
+
+# Cleaning and wrangling
+
+politik_df <- politik2 %>% select(-url, -X, -timestamp) #eliminating non-relevant columns
+politik_df <- as_tibble(politik_df)
+politik_df$date <- as.Date(politik_df$date, format = "%m/%d/%Y")
+head(politik_df)
+
+politik_df2 <- politik3 %>% select(-url, -X, -timestamp) #eliminating non-relevant columns
+politik_df2 <- as_tibble(politik_df2)
+politik_df2$date <- as.Date(politik_df2$date, format = "%m/%d/%Y")
+head(politik_df2)
+
+```
+
+Looking at the comments from user "Automoderator", it is like a Reddit moderator bot reminding rules of the forum, so I'll delete the rows belonging to AutoModerator". Also there are few commments "deleted".
+
+```{r}
+
+politik_df2 <- politik_df2[-(which(politik_df2$author %in% "AutoModerator")),]
+politik_df3 <- politik_df2[-(which(politik_df2$author %in% "[deleted]")),]
+
+head(politik_df3)
+dim(politik_df3)
+
+```
+
+Let's explore a bit the text in the comments with a word cloud before continuing with the Network analysis.
+
+```{r}
+
+#preparing for text analysis
+politik_vec <- as.vector(politik3$comment)
+politik_vec2 <- unlist(politik_vec, use.names = FALSE)
+
+politik_corpus <- corpus(politik_vec2)
+
+politik_corpus_summary <- summary(politik_corpus)
+politik_tokens <- tokens(politik_corpus)
+
+politik_tokens2 <- tokens(politik_corpus, remove_punct=TRUE, remove_numbers = T) %>%
+              tokens_select(pattern=c(stopwords("en"), "s", "just", "get", "can", "like", "people"),
+                            selection="remove") %>%
+             dfm()
+
+#word cloud
+textplot_wordcloud(politik_tokens2, max.words = 200)
+```
+It does seem that Trump is dminting the conversations.
+
+
+Let's explore a bit about the authors.
+
+```{r}
+
+#let's create some tables to see frequencies and totals
+
+#first I created a count column
+politik_df3 <- politik_df3 %>% mutate(countid = "1")
+politik_df3$countid <- as.numeric(politik_df3$countid)
+head(politik_df3)
+
+#preparing tables
+library(data.table)
+politik_table2 <- data.table(politik_df3)
+
+#total posts grouped by author
+count_table2 <- politik_table2 %>% group_by(author) %>% summarise(Total_posts = sum(countid))
+count_table2 <- count_table2 %>% arrange(desc(Total_posts))
+print(count_table2)
+
+summary_votes <- politik_table2 %>% group_by(author) %>% summarize(Total_Score = sum(score))
+summary_votes <- summary_votes %>% arrange(desc(Total_Score))
+print(summary_votes)
+
+#Upvotes as a proportion of comments
+summary_votes_ratio <- politik_table2 %>% group_by(author) %>% summarize(Ratio_upvotes_per_comment = sum(upvotes)/sum(countid))
+summary_votes_ratio <- summary_votes_ratio %>% arrange(desc(Ratio_upvotes_per_comment))
+print(summary_votes_ratio)
+
+#Let's see how is the distribution of upvotes per comment
+#I may need to decide to analyze certain number of users only and the 
+#level of interaction for those users could be a criteria de decide this
+percentiles <- quantile(summary_votes_ratio$Ratio_upvotes_per_comment, probs = c(0.25, 0.50, 0.75, 0.90))
+
+print(percentiles)
+```
+
+Now I am working on setting the data base for network analysis.
+
+

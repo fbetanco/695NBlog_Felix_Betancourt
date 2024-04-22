@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="E. Song/ Felix Betancourt">
+<meta name="dcterms.date" content="2024-04-19">
+
+<title>FB Blog - DACSS - UMASS - Final Project FB - Scrapping Data and Exploratory Analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">FB Blog - DACSS - UMASS</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Final Project FB - Scrapping Data and Exploratory Analysis</h1>
+            <p class="subtitle lead">DACSS 695N Social Network Analysis</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>E. Song/ Felix Betancourt </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">April 19, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#final-project---post-2---scrapping-and-exploring-the-data." id="toc-final-project---post-2---scrapping-and-exploring-the-data." class="nav-link active" data-scroll-target="#final-project---post-2---scrapping-and-exploring-the-data.">Final Project - Post 2 - Scrapping and Exploring the data.</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="final-project---post-2---scrapping-and-exploring-the-data." class="level2">
+<h2 class="anchored" data-anchor-id="final-project---post-2---scrapping-and-exploring-the-data.">Final Project - Post 2 - Scrapping and Exploring the data.</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>I am interested in understanding how social media users influence each other and create communities around specific topics.</p>
+<p>Specifically, I would like to explore this topic using Reddit to understand more in the context of domestic Politics.</p>
+</section>
+<section id="research-question" class="level3">
+<h3 class="anchored" data-anchor-id="research-question">Research Question</h3>
+<p>In particular:</p>
+<ol type="1">
+<li><p>How are Reddit users connected/related in the “Politics” subreddit (r/politics), particularly when it comes to topics related to Biden and Trump?</p></li>
+<li><p>Are there different communities (networks) for Biden and Trump?</p></li>
+<li><p>Is there a relationship between “upvotes” for a post, number of comments and how it is related to the key users in the network?</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: usethis</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'usethis' was built under R version 4.3.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidytext' was built under R version 4.3.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dplyr' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyr' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'readr' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'stringr' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'lubridate' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ forcats   1.0.0     ✔ readr     2.1.5
+✔ ggplot2   3.5.0     ✔ stringr   1.5.1
+✔ lubridate 1.9.3     ✔ tibble    3.2.1
+✔ purrr     1.0.2     ✔ tidyr     1.3.1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'quanteda' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Package version: 4.0.1
+Unicode version: 15.1
+ICU version: 74.1
+Parallel computing: 8 of 8 threads used.
+See https://quanteda.io for tutorials and examples.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda.textplots)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#library(RedditExtractoR)</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RCurl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'RCurl' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'RCurl'
+
+The following object is masked from 'package:tidyr':
+
+    complete</code></pre>
+</div>
+</div>
+</section>
+<section id="data" class="level3">
+<h3 class="anchored" data-anchor-id="data">Data</h3>
+<ol type="1">
+<li>I scraped data from the Politics subreddit (r/politics) on April 2nd 2024 using R (RedditExtractoR package)</li>
+</ol>
+<p>The code below is inactive because it can take a lot of time to run it. So I already scrapped the data and saved the files as csv.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#politics_reddit &lt;- find_thread_urls(subreddit = "politics", sort_by="new", period = "day")</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#politics_reddit_comments &lt;- get_thread_content(politics_reddit$url)</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Separate the lists into different objects</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">#politics_list1 &lt;- politics_reddit_comments[[1]] </span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co">#politics_list2 &lt;- politics_reddit_comments[[2]]</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="do">### Saving all the lists in csv to avoid the need to scrap the data several times</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(politics_reddit, file = "C:/Users/fbeta/OneDrive/1_UMASS_DACSS/695N - Social Network/R-695N-Network/Final Project/data/politics_comments1.csv")</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(politics_list1, file = "C:/Users/fbeta/OneDrive/1_UMASS_DACSS/695N - Social Network/R-695N-Network/Final Project/data/politics_comments2.csv")</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(politics_list2, file = "C:/Users/fbeta/OneDrive/1_UMASS_DACSS/695N - Social Network/R-695N-Network/Final Project/data/politics_comments3.csv")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>This subreddit has 8.5 million users, so the data can be very extensive, however the package used here (RedditExtractoR) pulled the last 1000 post only.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "C:/Users/fbeta/OneDrive/1_UMASS_DACSS/695N - Social Network/695NBlog_Felix_Betancourt/posts/Post 2 - Scrapping the data and Exploratory Analysis"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>politik1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"politics_comments1.csv"</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>politik2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"politics_comments2.csv"</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>politik3 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"politics_comments3.csv"</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(politik1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                                                   X
+1                Supreme Court starts arguments as Biden administration defends abortion pill access
+2                               Why the Supreme Court abortion pill case is so fraught for the right
+3   2015 securities fraud charges against Texas AG Ken Paxton to be dropped in deal with prosecutors
+4                 Biden campaign calls Trump \030weak and desperate\031 after New York court hearing
+5 Felony securities fraud charges against Attorney General Ken Paxton to be dropped after nine years
+6                                                     Trump Is Up to His Old Tricks to Pay His Bills
+    date_utc  timestamp
+1 2024-03-26 1711463500
+2 2024-03-26 1711463310
+3 2024-03-26 1711462666
+4 2024-03-26 1711462651
+5 2024-03-26 1711462570
+6 2024-03-26 1711462189
+                                                                                               title
+1                Supreme Court starts arguments as Biden administration defends abortion pill access
+2                               Why the Supreme Court abortion pill case is so fraught for the right
+3   2015 securities fraud charges against Texas AG Ken Paxton to be dropped in deal with prosecutors
+4                 Biden campaign calls Trump \030weak and desperate\031 after New York court hearing
+5 Felony securities fraud charges against Attorney General Ken Paxton to be dropped after nine years
+6                                                     Trump Is Up to His Old Tricks to Pay His Bills
+  text subreddit comments
+1       politics       34
+2       politics       21
+3       politics      194
+4       politics       24
+5       politics       43
+6       politics       15
+                                                                                                   url
+1          https://www.reddit.com/r/politics/comments/1bo9ce0/supreme_court_starts_arguments_as_biden/
+2   https://www.reddit.com/r/politics/comments/1bo99ng/why_the_supreme_court_abortion_pill_case_is_so/
+3   https://www.reddit.com/r/politics/comments/1bo90vd/2015_securities_fraud_charges_against_texas_ag/
+4    https://www.reddit.com/r/politics/comments/1bo90oj/biden_campaign_calls_trump_weak_and_desperate/
+5 https://www.reddit.com/r/politics/comments/1bo8zhu/felony_securities_fraud_charges_against_attorney/
+6   https://www.reddit.com/r/politics/comments/1bo8u1n/trump_is_up_to_his_old_tricks_to_pay_his_bills/</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(politik1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 983   8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(politik2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  X
+1 1
+2 2
+3 3
+4 4
+5 5
+6 6
+                                                                                                   url
+1          https://www.reddit.com/r/politics/comments/1bo9ce0/supreme_court_starts_arguments_as_biden/
+2   https://www.reddit.com/r/politics/comments/1bo99ng/why_the_supreme_court_abortion_pill_case_is_so/
+3   https://www.reddit.com/r/politics/comments/1bo90vd/2015_securities_fraud_charges_against_texas_ag/
+4    https://www.reddit.com/r/politics/comments/1bo90oj/biden_campaign_calls_trump_weak_and_desperate/
+5 https://www.reddit.com/r/politics/comments/1bo8zhu/felony_securities_fraud_charges_against_attorney/
+6   https://www.reddit.com/r/politics/comments/1bo8u1n/trump_is_up_to_his_old_tricks_to_pay_his_bills/
+             author      date  timestamp
+1  Cybertronian1512 3/26/2024 1711463500
+2           ban_hus 3/26/2024 1711463310
+3      coasterghost 3/26/2024 1711462666
+4           Quirkie 3/26/2024 1711462651
+5      texastribune 3/26/2024 1711462570
+6 thenationmagazine 3/26/2024 1711462189
+                                                                                               title
+1                Supreme Court starts arguments as Biden administration defends abortion pill access
+2                               Why the Supreme Court abortion pill case is so fraught for the right
+3   2015 securities fraud charges against Texas AG Ken Paxton to be dropped in deal with prosecutors
+4                 Biden campaign calls Trump \030weak and desperate\031 after New York court hearing
+5 Felony securities fraud charges against Attorney General Ken Paxton to be dropped after nine years
+6                                                     Trump Is Up to His Old Tricks to Pay His Bills
+  text subreddit score upvotes downvotes up_ratio total_awards_received golds
+1       politics   304     304         0     0.95                     0     0
+2       politics   127     127         0     0.92                     0     0
+3       politics  1250    1250         0     0.95                     0     0
+4       politics   791     791         0     0.96                     0     0
+5       politics   421     421         0     0.91                     0     0
+6       politics   226     226         0     0.91                     0     0
+  cross_posts comments
+1           0       34
+2           0       21
+3           0      194
+4           0       24
+5           0       43
+6           0       15</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(politik2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 983  16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(politik3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  X
+1 1
+2 2
+3 3
+4 4
+5 5
+6 6
+                                                                                          url
+1 https://www.reddit.com/r/politics/comments/1bo9ce0/supreme_court_starts_arguments_as_biden/
+2 https://www.reddit.com/r/politics/comments/1bo9ce0/supreme_court_starts_arguments_as_biden/
+3 https://www.reddit.com/r/politics/comments/1bo9ce0/supreme_court_starts_arguments_as_biden/
+4 https://www.reddit.com/r/politics/comments/1bo9ce0/supreme_court_starts_arguments_as_biden/
+5 https://www.reddit.com/r/politics/comments/1bo9ce0/supreme_court_starts_arguments_as_biden/
+6 https://www.reddit.com/r/politics/comments/1bo9ce0/supreme_court_starts_arguments_as_biden/
+         author      date  timestamp score upvotes downvotes golds
+1 AutoModerator 3/26/2024 1711463501     1       1         0     0
+2   EmmaLouLove 3/26/2024 1711465125    79      79         0     0
+3       ctguy54 3/26/2024 1711466287    41      41         0     0
+4   EmmaLouLove 3/26/2024 1711466455    13      13         0     0
+5        msfamf 3/26/2024 1711467091    19      19         0     0
+6   EmmaLouLove 3/26/2024 1711467635    13      13         0     0
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        comment
+1 \nAs a reminder, this subreddit [is for civil discussion.](/r/politics/wiki/index#wiki_be_civil)\n\nIn general, be courteous to others. Debate/discuss/argue the merits of ideas, don't attack people. Personal insults, shill or troll accusations, hate speech, any suggestion or support of harm, violence, or death, and other rule violations can result in a permanent ban. \n\nIf you see comments in violation of our rules, please report them.\n\n For those who have questions regarding any media outlets being posted on this subreddit, please click [here](https://www.reddit.com/r/politics/wiki/approveddomainslist) to review our details as to our approved domains list and outlet criteria.\n \n We are actively looking for new moderators.  If you have any interest in helping to make this subreddit a place for quality discussion, please fill out [this form](https://docs.google.com/forms/d/1y2swHD0KXFhStGFjW6k54r9iuMjzcFqDIVwuvdLBjSA).\n \n\n***\n\n\n*I am a bot, and this action was performed automatically. Please [contact the moderators of this subreddit](/message/compose/?to=/r/politics) if you have any questions or concerns.*
+2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                US Solicitor General Elizabeth Prelogar reminded the Supreme Court the courts have no business questioning the FDA\031s expertise on whether a drug should be approved or not.
+3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        This will not stop the conservatives on the court from believing that they know best. \n\nNext the court will decide whether you can take aspirin, Tylenol, or Motrin.
+4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             I am guessing even this SCOTUS knows that inserting themselves into FDA decisions will cause the floodgates to open.  What would be the next drug that would be brought before them?  It could be any drug advertised with the multiple warnings of side effects including death.
+5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 &amp;gt;What would be the next drug that would be brought before them? \n\nIf current trends and Republican talking points are any indication it's birth control.
+6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     True.  There is an ongoing attack by the conservative justices on Americans\031 personal privacy rights.  \n\nClarence Thomas called for overturning the constitutional rights the court had affirmed for access to contraceptives and LGBTQ rights in his Roe opinion.  \034In future cases, we should reconsider all of this Court\031s substantive due process precedents, including Griswold, Lawrence, and Obergefell.\035\n\nRepublicans seem hellbent on inserting themselves into anything they don\031t agree with, whether it be food for needy children or a woman\031s autonomy.  People should remember this when they vote.
+  comment_id
+1          1
+2          2
+3        2_1
+4      2_1_1
+5    2_1_1_1
+6  2_1_1_1_1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(politik3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12414    11</code></pre>
+</div>
+</div>
+<p>As we can see the the information in object “politik1” is redundant with the information in “politik2” so I won’t use “politik1” at all. “Politik2” contain information about the title of the post, author, and some numeric information like up-down votes, number of replies to the post. “politik3” contain detailed comments on each post.</p>
+<p>I’ll use Text as Data methods to identify key words in the title of the posts (like Biden-Trump, or other topics of interest).</p>
+<p>Let’s do some data wrangling:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cleaning and wrangling</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>politik_df <span class="ot">&lt;-</span> politik2 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>url, <span class="sc">-</span>X, <span class="sc">-</span>timestamp) <span class="co">#eliminating non-relevant columns</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>politik_df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(politik_df)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>politik_df<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(politik_df<span class="sc">$</span>date, <span class="at">format =</span> <span class="st">"%m/%d/%Y"</span>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(politik_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 13
+  author       date       title text  subreddit score upvotes downvotes up_ratio
+  &lt;chr&gt;        &lt;date&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;int&gt;   &lt;int&gt;     &lt;int&gt;    &lt;dbl&gt;
+1 Cybertronia… 2024-03-26 "Sup… ""    politics    304     304         0     0.95
+2 ban_hus      2024-03-26 "Why… ""    politics    127     127         0     0.92
+3 coasterghost 2024-03-26 "201… ""    politics   1250    1250         0     0.95
+4 Quirkie      2024-03-26 "Bid… ""    politics    791     791         0     0.96
+5 texastribune 2024-03-26 "Fel… ""    politics    421     421         0     0.91
+6 thenationma… 2024-03-26 "Tru… ""    politics    226     226         0     0.91
+# ℹ 4 more variables: total_awards_received &lt;int&gt;, golds &lt;int&gt;,
+#   cross_posts &lt;int&gt;, comments &lt;int&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>politik_df2 <span class="ot">&lt;-</span> politik3 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>url, <span class="sc">-</span>X, <span class="sc">-</span>timestamp) <span class="co">#eliminating non-relevant columns</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>politik_df2 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(politik_df2)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>politik_df2<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(politik_df2<span class="sc">$</span>date, <span class="at">format =</span> <span class="st">"%m/%d/%Y"</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(politik_df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+  author        date       score upvotes downvotes golds comment      comment_id
+  &lt;chr&gt;         &lt;date&gt;     &lt;int&gt;   &lt;int&gt;     &lt;int&gt; &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;     
+1 AutoModerator 2024-03-26     1       1         0     0 "\nAs a rem… 1         
+2 EmmaLouLove   2024-03-26    79      79         0     0 "US Solicit… 2         
+3 ctguy54       2024-03-26    41      41         0     0 "This will … 2_1       
+4 EmmaLouLove   2024-03-26    13      13         0     0 "I am guess… 2_1_1     
+5 msfamf        2024-03-26    19      19         0     0 "&amp;gt;What w… 2_1_1_1   
+6 EmmaLouLove   2024-03-26    13      13         0     0 "True.  The… 2_1_1_1_1 </code></pre>
+</div>
+</div>
+<p>Looking at the comments from user “Automoderator”, it is like a Reddit moderator bot reminding rules of the forum, so I’ll delete the rows belonging to AutoModerator”. Also there are few commments “deleted”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>politik_df2 <span class="ot">&lt;-</span> politik_df2[<span class="sc">-</span>(<span class="fu">which</span>(politik_df2<span class="sc">$</span>author <span class="sc">%in%</span> <span class="st">"AutoModerator"</span>)),]</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>politik_df3 <span class="ot">&lt;-</span> politik_df2[<span class="sc">-</span>(<span class="fu">which</span>(politik_df2<span class="sc">$</span>author <span class="sc">%in%</span> <span class="st">"[deleted]"</span>)),]</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(politik_df3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+  author      date       score upvotes downvotes golds comment        comment_id
+  &lt;chr&gt;       &lt;date&gt;     &lt;int&gt;   &lt;int&gt;     &lt;int&gt; &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;     
+1 EmmaLouLove 2024-03-26    79      79         0     0 "US Solicitor… 2         
+2 ctguy54     2024-03-26    41      41         0     0 "This will no… 2_1       
+3 EmmaLouLove 2024-03-26    13      13         0     0 "I am guessin… 2_1_1     
+4 msfamf      2024-03-26    19      19         0     0 "&amp;gt;What wou… 2_1_1_1   
+5 EmmaLouLove 2024-03-26    13      13         0     0 "True.  There… 2_1_1_1_1 
+6 msfamf      2024-03-26     7       7         0     0 "I was readin… 2_1_1_1_1…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(politik_df3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12063     8</code></pre>
+</div>
+</div>
+<p>Let’s explore a bit the text in the comments with a word cloud before continuing with the Network analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#preparing for text analysis</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>politik_vec <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(politik3<span class="sc">$</span>comment)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>politik_vec2 <span class="ot">&lt;-</span> <span class="fu">unlist</span>(politik_vec, <span class="at">use.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>politik_corpus <span class="ot">&lt;-</span> <span class="fu">corpus</span>(politik_vec2)</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>politik_corpus_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(politik_corpus)</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>politik_tokens <span class="ot">&lt;-</span> <span class="fu">tokens</span>(politik_corpus)</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>politik_tokens2 <span class="ot">&lt;-</span> <span class="fu">tokens</span>(politik_corpus, <span class="at">remove_punct=</span><span class="cn">TRUE</span>, <span class="at">remove_numbers =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>              <span class="fu">tokens_select</span>(<span class="at">pattern=</span><span class="fu">c</span>(<span class="fu">stopwords</span>(<span class="st">"en"</span>), <span class="st">"s"</span>, <span class="st">"just"</span>, <span class="st">"get"</span>, <span class="st">"can"</span>, <span class="st">"like"</span>, <span class="st">"people"</span>),</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>                            <span class="at">selection=</span><span class="st">"remove"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>             <span class="fu">dfm</span>()</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a><span class="co">#word cloud</span></span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a><span class="fu">textplot_wordcloud</span>(politik_tokens2, <span class="at">max.words =</span> <span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: max.words is deprecated; use max_words instead</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Final-Project-Post-2_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>It does seem that Trump is dminting the conversations.</p>
+<p>Let’s explore a bit about the authors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#let's create some tables to see frequencies and totals</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="co">#first I created a count column</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>politik_df3 <span class="ot">&lt;-</span> politik_df3 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">countid =</span> <span class="st">"1"</span>)</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>politik_df3<span class="sc">$</span>countid <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(politik_df3<span class="sc">$</span>countid)</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(politik_df3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 9
+  author     date       score upvotes downvotes golds comment comment_id countid
+  &lt;chr&gt;      &lt;date&gt;     &lt;int&gt;   &lt;int&gt;     &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt;
+1 EmmaLouLo… 2024-03-26    79      79         0     0 "US So… 2                1
+2 ctguy54    2024-03-26    41      41         0     0 "This … 2_1              1
+3 EmmaLouLo… 2024-03-26    13      13         0     0 "I am … 2_1_1            1
+4 msfamf     2024-03-26    19      19         0     0 "&amp;gt;W… 2_1_1_1          1
+5 EmmaLouLo… 2024-03-26    13      13         0     0 "True.… 2_1_1_1_1        1
+6 msfamf     2024-03-26     7       7         0     0 "I was… 2_1_1_1_1…       1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#preparing tables</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'data.table' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'data.table'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:lubridate':
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:purrr':
+
+    transpose</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:dplyr':
+
+    between, first, last</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>politik_table2 <span class="ot">&lt;-</span> <span class="fu">data.table</span>(politik_df3)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co">#total posts grouped by author</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>count_table2 <span class="ot">&lt;-</span> politik_table2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(author) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">Total_posts =</span> <span class="fu">sum</span>(countid))</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>count_table2 <span class="ot">&lt;-</span> count_table2 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Total_posts))</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(count_table2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6,520 × 2
+   author               Total_posts
+   &lt;chr&gt;                      &lt;dbl&gt;
+ 1 Numerous_Photograph9          84
+ 2 bignanoman                    40
+ 3 Class_of_22                   34
+ 4 Ferelwing                     33
+ 5 LivingEnd44                   32
+ 6 jimmydublets                  30
+ 7 mymomknowsyourmom             25
+ 8 grixorbatz                    23
+ 9 sndcstle                      23
+10 Logical_Parameters            22
+# ℹ 6,510 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>summary_votes <span class="ot">&lt;-</span> politik_table2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(author) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">Total_Score =</span> <span class="fu">sum</span>(score))</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>summary_votes <span class="ot">&lt;-</span> summary_votes <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Total_Score))</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(summary_votes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6,520 × 2
+   author          Total_Score
+   &lt;chr&gt;                 &lt;int&gt;
+ 1 BukkitCrab             8414
+ 2 PalmettoAndMoon        6095
+ 3 OokLeeNooma            5480
+ 4 Poppa_Mo               4481
+ 5 TheDudeBeto            3892
+ 6 TintedApostle          3661
+ 7 ImmoKnight             3343
+ 8 Crazy-Nights           3032
+ 9 HotPhilly              2809
+10 Jackinapox             2625
+# ℹ 6,510 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Upvotes as a proportion of comments</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>summary_votes_ratio <span class="ot">&lt;-</span> politik_table2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(author) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">Ratio_upvotes_per_comment =</span> <span class="fu">sum</span>(upvotes)<span class="sc">/</span><span class="fu">sum</span>(countid))</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>summary_votes_ratio <span class="ot">&lt;-</span> summary_votes_ratio <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Ratio_upvotes_per_comment))</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(summary_votes_ratio)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6,520 × 2
+   author             Ratio_upvotes_per_comment
+   &lt;chr&gt;                                  &lt;dbl&gt;
+ 1 OokLeeNooma                            5480 
+ 2 TheDudeBeto                            3892 
+ 3 Poppa_Mo                               2240.
+ 4 ScotTheDuck                            2160 
+ 5 AbandonedWaterPark                     2118 
+ 6 rollingstone                           2096 
+ 7 bocaciega                              1876 
+ 8 jono9898                               1717 
+ 9 PurpleCitron8                          1604 
+10 Jackinapox                             1312.
+# ℹ 6,510 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Let's see how is the distribution of upvotes per comment</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="co">#I may need to decide to analyze certain number of users only and the </span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="co">#level of interaction for those users could be a criteria de decide this</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>percentiles <span class="ot">&lt;-</span> <span class="fu">quantile</span>(summary_votes_ratio<span class="sc">$</span>Ratio_upvotes_per_comment, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.50</span>, <span class="fl">0.75</span>, <span class="fl">0.90</span>))</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(percentiles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      25%       50%       75%       90% 
+ 1.666667  3.666667 11.000000 31.161905 </code></pre>
+</div>
+</div>
+<p>Now I am working on setting the data base for network analysis.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
