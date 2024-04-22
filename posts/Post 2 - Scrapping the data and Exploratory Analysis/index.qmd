@@ -1,5 +1,5 @@
 ---
-title: "Final Project FB - Scrapping Data and Exploratory Analysis"
+title: "Post 2- Final Project FB - Scrapping Data and Exploratory Analysis - 695N Course"
 subtitle: "DACSS 695N Social Network Analysis"
 author: "E. Song/ Felix Betancourt"
 date: "April 19, 2024"
