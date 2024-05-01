@@ -433,11 +433,12 @@ politik_attributes2 <- politik_attributes %>%
 #now let's see how females and males are interacting
 nodeColors<-ifelse(politik_attributes2$biden,"dodgerblue","red")
 plot(politik.n,displaylabels=F,vertex.col=nodeColors,vertex.cex=2, displayisolates=T) #including isolated nodes
-
+legend("bottomright", legend = c("Biden", "Trump"), col = c("dodgerblue", "red"), pch = c(21, 21), title = "Node Type")
 ```
 
 ```{r}
 plot(politik.n,displaylabels=F,vertex.col=nodeColors,vertex.cex=2, displayisolates=F) #excluding isolated nodes
+legend("bottomright", legend = c("Biden", "Trump"), col = c("dodgerblue", "red"), pch = c(21, 21), title = "Node Type")
 ```
 
 
