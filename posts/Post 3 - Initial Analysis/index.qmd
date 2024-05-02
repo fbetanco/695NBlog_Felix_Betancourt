@@ -1,8 +1,8 @@
 ---
-title: "Final Project FB - Post 3 Initial Network Analysis"
+title: "Final Project FB - working doc"
 subtitle: "DACSS 695N Social Network Analysis"
 author: "E. Song/ Felix Betancourt"
-date: "April 30, 2024"
+date: "April 21, 2024"
 format: 
   html:
     toc: true
@@ -39,7 +39,8 @@ In particular:
 
 3.  Is there a relationship between "upvotes" for a post, number of comments and how it is related to the key users in the network?
 
-```{r message = FALSE}
+```{r}
+suppressWarnings({
 library(tidytext)
 library(dplyr)
 library(tidyverse)
@@ -49,7 +50,7 @@ library(janitor)
 #library(RedditExtractoR)
 library(RCurl)
 library(data.table)
-
+})
 
 ```
 
@@ -89,14 +90,8 @@ politik2 <- fread("politics_comments2.csv")
 politik3 <- fread("politics_comments3.csv")
 
 glimpse(politik1)
-head(politik1)
-
 glimpse(politik2)
-head(politik2)
-
 glimpse(politik3)
-head(politik3)
-
 
 ```
 
@@ -213,12 +208,11 @@ I'll need a different approach.
 I'll select 2 posts with a "median" number of comments. One post will be about Trump and another about Biden.
 
 ```{r}
-
+suppressWarnings({
 #First selecting posts with "Trump" or "Biden" included in the title of the post
 #Filtering the titles that contain Trump
 trump_df <- politik_df %>% filter(grepl("Trump", title))
 trump_df$candidate <- "Trump"
-glimpse(trump_df)
 
 #Let's check the distribution of number of comments
 percentiles_trump <- quantile(trump_df$comments, probs = c(0.25, 0.50, 0.75, 0.90, 0.95, 0.99))
@@ -227,12 +221,11 @@ print(percentiles_trump)
 #Filtering the titles that contain Biden
 biden_df <- politik_df %>% filter(grepl("Biden", title))
 biden_df$candidate <- "Biden"
-glimpse(biden_df)
 
 #Let's check the distribution of number of comments
 percentiles_biden <- quantile(biden_df$comments, probs = c(0.25, 0.50, 0.75, 0.90, 0.95, 0.99))
 print(percentiles_biden)
-
+})
 ```
 
 ```{r}
@@ -243,11 +236,9 @@ print(percentiles_biden)
 
 #Trump
 trump_post <- subset(trump_df, comments == 74 )
-glimpse(trump_post)
 
 #Biden
 biden_post <- subset(biden_df, comments == 67 )
-glimpse(biden_post)
 
 ```
 
@@ -257,7 +248,6 @@ Now I got the 2 main posts, let's explore a bit those 2 posts.
 
 #merging the previous df's
 trump_biden_df <- rbind(trump_post, biden_post)
-glimpse(trump_biden_df)
 print(trump_biden_df$url)
 
 #let's identify these posts in the politik3 df (containing all the details)
@@ -282,7 +272,6 @@ politik_final2 <- politik_final %>%
   mutate(Level = str_count(comment_id, pattern = "_") + 1,  # Count underscores to determine depth
          ParentID = ifelse(Level > 1, sapply(strsplit(comment_id, "_"), function(x) paste(x[-length(x)], collapse = "_")), NA))
 
-glimpse(politik_final2)
 length(unique(politik_final2$author))
 length(unique(politik_final2$url))
 
@@ -290,7 +279,7 @@ length(unique(politik_final2$url))
 
 Now we got 80 nodes (authors) from the 2 posts.
 
-Let's work now on this df
+Now I am ready to work on this data set.
 
 ```{r}
 #Rename level column as it represent more how deep/far is the comment
@@ -312,11 +301,11 @@ politik_final2$comment_id2 <- paste(politik_final2$level2, politik_final2$level,
 #Now I'll create a new object by keeping only the columns I need
 
 politik_final3 <- select(politik_final2, c(-"comment_id", -"ParentID", -"level", -"level2"))
-glimpse(politik_final3)
+
 
 #Will create a attribute only object to use later
 politik_attributes <- select(politik_final3, c("score", "candidate", "deep"))
-glimpse(politik_attributes)
+head(politik_attributes)
 
 
 
@@ -352,10 +341,10 @@ for (i in 1:length(unique_names)) {
 # I'll eliminate loops in advance
 diag(adj_matrix) <- 0
 
+
 ```
 
 Now let's explore the Network
-
 
 ```{r message = FALSE}
 
@@ -370,7 +359,6 @@ politik.n
 ```
 
 We got 80 nodes and 316 edges.
-
 
 ```{r}
 #Dyads and Triads census
@@ -404,6 +392,7 @@ This density of 0.05 indicates a relatively sparse network with few connections 
 This combination of high transitivity and low density might suggests the presence of strong community structure in the network, where nodes are densely connected within their respective communities but sparsely connected between communities.
 
 Let's visualize the network
+
 ```{r}
 
 # Plot the network
@@ -412,14 +401,13 @@ plot(politik.n, displaylabels = TRUE, label.cex=0.7, vertex.cex=1.5, displayisol
 ```
 
 Without isolated nodes
+
 ```{r}
 
 # Plot the network
 plot(politik.n, displaylabels = TRUE, label.cex=0.7, vertex.cex=1.5, displayisolates=F, main = "Authors Network")
 
 ```
-
-
 
 Let's now include the Candidate as attribute
 
@@ -440,5 +428,3 @@ legend("bottomright", legend = c("Biden", "Trump"), col = c("dodgerblue", "red")
 plot(politik.n,displaylabels=F,vertex.col=nodeColors,vertex.cex=2, displayisolates=F) #excluding isolated nodes
 legend("bottomright", legend = c("Biden", "Trump"), col = c("dodgerblue", "red"), pch = c(21, 21), title = "Node Type")
 ```
-
-
