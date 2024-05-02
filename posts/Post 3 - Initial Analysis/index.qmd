@@ -1,8 +1,8 @@
 ---
-title: "Final Project FB - working doc"
+title: "Final Project FB - Post 3 - Initial Network Analysis "
 subtitle: "DACSS 695N Social Network Analysis"
 author: "E. Song/ Felix Betancourt"
-date: "April 21, 2024"
+date: "April 30, 2024"
 format: 
   html:
     toc: true
