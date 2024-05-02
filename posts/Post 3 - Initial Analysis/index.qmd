@@ -42,14 +42,14 @@ In particular:
 ```{r}
 suppressWarnings({
 library(tidytext)
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 library(tidyverse)
 library(quanteda)
 library(quanteda.textplots)
-library(janitor)
+suppressPackageStartupMessages(library(janitor))
 #library(RedditExtractoR)
-library(RCurl)
-library(data.table)
+suppressPackageStartupMessages(library(RCurl))
+suppressPackageStartupMessages(library(data.table))
 })
 
 ```
