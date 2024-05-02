@@ -41,11 +41,11 @@ In particular:
 
 ```{r}
 suppressWarnings({
-library(tidytext)
+suppressPackageStartupMessages(library(tidytext))
 suppressPackageStartupMessages(library(dplyr))
-library(tidyverse)
-library(quanteda)
-library(quanteda.textplots)
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(quanteda))
+suppressPackageStartupMessages(library(quanteda.textplots))
 suppressPackageStartupMessages(library(janitor))
 #library(RedditExtractoR)
 suppressPackageStartupMessages(library(RCurl))

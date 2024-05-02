@@ -215,85 +215,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>({</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda.textplots)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tidytext))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(dplyr))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tidyverse))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(quanteda))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(quanteda.textplots))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(janitor))</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#library(RedditExtractoR)</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RCurl)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(RCurl))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(data.table))</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ forcats   1.0.0     ✔ readr     2.1.5
-✔ ggplot2   3.5.1     ✔ stringr   1.5.1
-✔ lubridate 1.9.3     ✔ tibble    3.2.1
-✔ purrr     1.0.2     ✔ tidyr     1.3.1
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
-Package version: 4.0.2
-Unicode version: 15.1
-ICU version: 74.1
-
-Parallel computing: 8 of 8 threads used.
-
-See https://quanteda.io for tutorials and examples.
-
-
-Attaching package: 'janitor'
-
-
-The following objects are masked from 'package:stats':
-
-    chisq.test, fisher.test
-
-
-
-Attaching package: 'RCurl'
-
-
-The following object is masked from 'package:tidyr':
-
-    complete
-
-
-
-Attaching package: 'data.table'
-
-
-The following objects are masked from 'package:lubridate':
-
-    hour, isoweek, mday, minute, month, quarter, second, wday, week,
-    yday, year
-
-
-The following object is masked from 'package:purrr':
-
-    transpose
-
-
-The following objects are masked from 'package:dplyr':
-
-    between, first, last</code></pre>
-</div>
 </div>
 </section>
 <section id="data" class="level3">
@@ -303,37 +234,37 @@ The following objects are masked from 'package:dplyr':
 </ol>
 <p>The code below is inactive because it can take a lot of time to run it. So I already scrapped the data and saved the files as csv.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#politics_reddit &lt;- find_thread_urls(subreddit = "politics", sort_by="new", period = "day")</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#politics_reddit_comments &lt;- get_thread_content(politics_reddit$url)</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Separate the lists into different objects</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#politics_list1 &lt;- politics_reddit_comments[[1]] </span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#politics_list2 &lt;- politics_reddit_comments[[2]]</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="do">### Saving all the lists in csv to avoid the need to scrap the data several times</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(politics_reddit, file = "C:/Users/fbeta/OneDrive/1_UMASS_DACSS/695N - Social Network/R-695N-Network/Final Project/data/politics_comments1.csv")</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(politics_list1, file = "C:/Users/fbeta/OneDrive/1_UMASS_DACSS/695N - Social Network/R-695N-Network/Final Project/data/politics_comments2.csv")</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(politics_list2, file = "C:/Users/fbeta/OneDrive/1_UMASS_DACSS/695N - Social Network/R-695N-Network/Final Project/data/politics_comments3.csv")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#politics_reddit &lt;- find_thread_urls(subreddit = "politics", sort_by="new", period = "day")</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#politics_reddit_comments &lt;- get_thread_content(politics_reddit$url)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Separate the lists into different objects</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#politics_list1 &lt;- politics_reddit_comments[[1]] </span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#politics_list2 &lt;- politics_reddit_comments[[2]]</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="do">### Saving all the lists in csv to avoid the need to scrap the data several times</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(politics_reddit, file = "C:/Users/fbeta/OneDrive/1_UMASS_DACSS/695N - Social Network/R-695N-Network/Final Project/data/politics_comments1.csv")</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(politics_list1, file = "C:/Users/fbeta/OneDrive/1_UMASS_DACSS/695N - Social Network/R-695N-Network/Final Project/data/politics_comments2.csv")</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(politics_list2, file = "C:/Users/fbeta/OneDrive/1_UMASS_DACSS/695N - Social Network/R-695N-Network/Final Project/data/politics_comments3.csv")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="2" type="1">
 <li>This subreddit has 8.5 million users, so the data can be very extensive, however the package used here (RedditExtractoR) pulled the last 1000 post.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "C:/Users/FelixBetancourt/OneDrive - H-E Parts International/Personal/DACSS-HEP/695N- Network/695NBlog_Felix_Betancourt/posts/Post 3 - Initial Analysis"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read large CSV file using fread</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>politik1 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"politics_comments1.csv"</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>politik2 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"politics_comments2.csv"</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>politik3 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"politics_comments3.csv"</span>)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(politik1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read large CSV file using fread</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>politik1 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"politics_comments1.csv"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>politik2 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"politics_comments2.csv"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>politik3 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"politics_comments3.csv"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(politik1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 983
 Columns: 8
@@ -346,7 +277,7 @@ $ subreddit &lt;chr&gt; "politics", "politics", "politics", "politics", "politic
 $ comments  &lt;int&gt; 34, 21, 194, 24, 43, 15, 150, 251, 18, 26, 10, 597, 27, 299,…
 $ url       &lt;chr&gt; "https://www.reddit.com/r/politics/comments/1bo9ce0/supreme_…</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(politik2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(politik2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 983
 Columns: 16
@@ -367,7 +298,7 @@ $ golds                 &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 $ cross_posts           &lt;int&gt; 0, 0, 0, 0, 0, 0, 2, 0, 0, 1, 0, 0, 0, 1, 1, 0, …
 $ comments              &lt;int&gt; 34, 21, 194, 24, 43, 15, 150, 250, 18, 26, 10, 5…</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(politik3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(politik3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 95,879
 Columns: 11
@@ -388,42 +319,42 @@ $ comment_id &lt;chr&gt; "1", "2", "2_1", "2_1_1", "2_1_1_1", "2_1_1_1_1", "2_1_
 <p>I’ll use Text as Data methods to identify key words in the title of the posts (like Biden-Trump, or other topics of interest).</p>
 <p>Let’s do some data wrangling first:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cleaning and wrangling</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>politik_df <span class="ot">&lt;-</span> politik2 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>V1, <span class="sc">-</span>timestamp) <span class="co">#eliminating non-relevant columns</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>politik_df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(politik_df)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>politik_df<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(politik_df<span class="sc">$</span>date, <span class="at">format =</span> <span class="st">"%m/%d/%Y"</span>)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>politik_df2 <span class="ot">&lt;-</span> politik3 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>V1, <span class="sc">-</span>timestamp) <span class="co">#eliminating non-relevant columns</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>politik_df2 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(politik_df2)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>politik_df2<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(politik_df2<span class="sc">$</span>date, <span class="at">format =</span> <span class="st">"%m/%d/%Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cleaning and wrangling</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>politik_df <span class="ot">&lt;-</span> politik2 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>V1, <span class="sc">-</span>timestamp) <span class="co">#eliminating non-relevant columns</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>politik_df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(politik_df)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>politik_df<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(politik_df<span class="sc">$</span>date, <span class="at">format =</span> <span class="st">"%m/%d/%Y"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>politik_df2 <span class="ot">&lt;-</span> politik3 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>V1, <span class="sc">-</span>timestamp) <span class="co">#eliminating non-relevant columns</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>politik_df2 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(politik_df2)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>politik_df2<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(politik_df2<span class="sc">$</span>date, <span class="at">format =</span> <span class="st">"%m/%d/%Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Looking at the comments from user “Automoderator”, it is like a Reddit moderator bot reminding rules of the forum, so I’ll delete the rows belonging to AutoModerator”. Also there are few commments where the author was “deleted”.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>politik_df2 <span class="ot">&lt;-</span> politik_df2[<span class="sc">-</span>(<span class="fu">which</span>(politik_df2<span class="sc">$</span>author <span class="sc">%in%</span> <span class="st">"AutoModerator"</span>)),]</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>politik_df3 <span class="ot">&lt;-</span> politik_df2[<span class="sc">-</span>(<span class="fu">which</span>(politik_df2<span class="sc">$</span>author <span class="sc">%in%</span> <span class="st">"[deleted]"</span>)),]</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(politik3<span class="sc">$</span>url))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>politik_df2 <span class="ot">&lt;-</span> politik_df2[<span class="sc">-</span>(<span class="fu">which</span>(politik_df2<span class="sc">$</span>author <span class="sc">%in%</span> <span class="st">"AutoModerator"</span>)),]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>politik_df3 <span class="ot">&lt;-</span> politik_df2[<span class="sc">-</span>(<span class="fu">which</span>(politik_df2<span class="sc">$</span>author <span class="sc">%in%</span> <span class="st">"[deleted]"</span>)),]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(politik3<span class="sc">$</span>url))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 983</code></pre>
 </div>
 </div>
 <p>Let’s explore a bit about the authors.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#let's create some tables to see frequencies and totals</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#first I created a count column</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>politik_df3 <span class="ot">&lt;-</span> politik_df3 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">countid =</span> <span class="st">"1"</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>politik_df3<span class="sc">$</span>countid <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(politik_df3<span class="sc">$</span>countid)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#preparing tables</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>politik_table2 <span class="ot">&lt;-</span> <span class="fu">data.table</span>(politik_df3)</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co">#total posts grouped by author</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>count_table2 <span class="ot">&lt;-</span> politik_table2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(author) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">Total_posts =</span> <span class="fu">sum</span>(countid))</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>count_table2 <span class="ot">&lt;-</span> count_table2 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Total_posts))</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(count_table2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#let's create some tables to see frequencies and totals</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#first I created a count column</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>politik_df3 <span class="ot">&lt;-</span> politik_df3 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">countid =</span> <span class="st">"1"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>politik_df3<span class="sc">$</span>countid <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(politik_df3<span class="sc">$</span>countid)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#preparing tables</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>politik_table2 <span class="ot">&lt;-</span> <span class="fu">data.table</span>(politik_df3)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#total posts grouped by author</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>count_table2 <span class="ot">&lt;-</span> politik_table2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(author) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">Total_posts =</span> <span class="fu">sum</span>(countid))</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>count_table2 <span class="ot">&lt;-</span> count_table2 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Total_posts))</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(count_table2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 31,554 × 2
    author               Total_posts
@@ -440,9 +371,9 @@ $ comment_id &lt;chr&gt; "1", "2", "2_1", "2_1_1", "2_1_1_1", "2_1_1_1_1", "2_1_
 10 RickyWinterborn-1080          97
 # ℹ 31,544 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>summary_votes <span class="ot">&lt;-</span> politik_table2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(author) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">Total_Score =</span> <span class="fu">sum</span>(score))</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>summary_votes <span class="ot">&lt;-</span> summary_votes <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Total_Score))</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(summary_votes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>summary_votes <span class="ot">&lt;-</span> politik_table2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(author) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">Total_Score =</span> <span class="fu">sum</span>(score))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>summary_votes <span class="ot">&lt;-</span> summary_votes <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Total_Score))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(summary_votes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 31,554 × 2
    author             Total_Score
@@ -459,10 +390,10 @@ $ comment_id &lt;chr&gt; "1", "2", "2_1", "2_1_1", "2_1_1_1", "2_1_1_1_1", "2_1_
 10 AngusMcTibbins            8477
 # ℹ 31,544 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Upvotes as a proportion of comments</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>summary_votes_ratio <span class="ot">&lt;-</span> politik_table2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(author) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">Ratio_upvotes_per_comment =</span> <span class="fu">sum</span>(upvotes)<span class="sc">/</span><span class="fu">sum</span>(countid))</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>summary_votes_ratio <span class="ot">&lt;-</span> summary_votes_ratio <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Ratio_upvotes_per_comment))</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(summary_votes_ratio)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Upvotes as a proportion of comments</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>summary_votes_ratio <span class="ot">&lt;-</span> politik_table2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(author) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">Ratio_upvotes_per_comment =</span> <span class="fu">sum</span>(upvotes)<span class="sc">/</span><span class="fu">sum</span>(countid))</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>summary_votes_ratio <span class="ot">&lt;-</span> summary_votes_ratio <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Ratio_upvotes_per_comment))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(summary_votes_ratio)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 31,554 × 2
    author             Ratio_upvotes_per_comment
@@ -479,8 +410,8 @@ $ comment_id &lt;chr&gt; "1", "2", "2_1", "2_1_1", "2_1_1_1", "2_1_1_1_1", "2_1_
 10 torspice                               2064 
 # ℹ 31,544 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How many authors (nodes) we have here?</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(politik_df3<span class="sc">$</span>author))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How many authors (nodes) we have here?</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(politik_df3<span class="sc">$</span>author))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 31554</code></pre>
 </div>
@@ -488,9 +419,9 @@ $ comment_id &lt;chr&gt; "1", "2", "2_1", "2_1_1", "2_1_1_1", "2_1_1_1_1", "2_1_
 <p>In the data set there are about +31k users/authors (nodes), which is way too much nodes for the purpose of my research, so I’ll select a sample of posts to analyze.</p>
 <p>I’ll select the top 1% posts with more comments.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#first let's see the distribution of number of comments</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>percentiles <span class="ot">&lt;-</span> <span class="fu">quantile</span>(politik_df<span class="sc">$</span>comments, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.50</span>, <span class="fl">0.75</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.99</span>))</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(percentiles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#first let's see the distribution of number of comments</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>percentiles <span class="ot">&lt;-</span> <span class="fu">quantile</span>(politik_df<span class="sc">$</span>comments, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.50</span>, <span class="fl">0.75</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.99</span>))</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(percentiles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   25%    50%    75%    90%    95%    99% 
   20.0   46.0  115.0  338.6  576.2 1439.1 </code></pre>
@@ -498,8 +429,8 @@ $ comment_id &lt;chr&gt; "1", "2", "2_1", "2_1_1", "2_1_1_1", "2_1_1_1_1", "2_1_
 </div>
 <p>Let’s subset the df with the top 1% posts in terms of comments and let’s see how many posts we have.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>subset_politik2 <span class="ot">&lt;-</span> <span class="fu">subset</span>(politik_df, comments <span class="sc">&gt;=</span> <span class="dv">1439</span> )</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(subset_politik2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>subset_politik2 <span class="ot">&lt;-</span> <span class="fu">subset</span>(politik_df, comments <span class="sc">&gt;=</span> <span class="dv">1439</span> )</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(subset_politik2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 10
 Columns: 14
@@ -518,7 +449,7 @@ $ golds                 &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 $ cross_posts           &lt;int&gt; 1, 2, 5, 7, 9, 2, 3, 3, 6, 3
 $ comments              &lt;int&gt; 1476, 2018, 3564, 2419, 1523, 1677, 2291, 1668, …</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(subset_politik2<span class="sc">$</span>author))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(subset_politik2<span class="sc">$</span>author))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10</code></pre>
 </div>
@@ -526,11 +457,11 @@ $ comments              &lt;int&gt; 1476, 2018, 3564, 2419, 1523, 1677, 2291, 16
 <p>We got a df with 10 original posts and 10 authors, this is now a more “reasonable” data frame to analyze.</p>
 <p>Now I need to identify these post into the “politik_df3” df which contain all the hierarchical comments network.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>subset_politik3 <span class="ot">&lt;-</span> politik_df3 <span class="sc">%&gt;%</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>         <span class="fu">filter</span>(url <span class="sc">%in%</span> subset_politik2<span class="sc">$</span>url)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">#let's see the df now </span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(subset_politik3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>subset_politik3 <span class="ot">&lt;-</span> politik_df3 <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>         <span class="fu">filter</span>(url <span class="sc">%in%</span> subset_politik2<span class="sc">$</span>url)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">#let's see the df now </span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(subset_politik3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 4,902
 Columns: 10
@@ -547,8 +478,8 @@ $ countid    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#how many nodes (authors)?</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(subset_politik3<span class="sc">$</span>author))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#how many nodes (authors)?</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(subset_politik3<span class="sc">$</span>author))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3869</code></pre>
 </div>
@@ -557,24 +488,24 @@ $ countid    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 <p>I’ll need a different approach.</p>
 <p>I’ll select 2 posts with a “median” number of comments. One post will be about Trump and another about Biden.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>({</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co">#First selecting posts with "Trump" or "Biden" included in the title of the post</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Filtering the titles that contain Trump</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>trump_df <span class="ot">&lt;-</span> politik_df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"Trump"</span>, title))</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>trump_df<span class="sc">$</span>candidate <span class="ot">&lt;-</span> <span class="st">"Trump"</span></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Let's check the distribution of number of comments</span></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>percentiles_trump <span class="ot">&lt;-</span> <span class="fu">quantile</span>(trump_df<span class="sc">$</span>comments, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.50</span>, <span class="fl">0.75</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.99</span>))</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(percentiles_trump)</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Filtering the titles that contain Biden</span></span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>biden_df <span class="ot">&lt;-</span> politik_df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"Biden"</span>, title))</span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>biden_df<span class="sc">$</span>candidate <span class="ot">&lt;-</span> <span class="st">"Biden"</span></span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Let's check the distribution of number of comments</span></span>
-<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>percentiles_biden <span class="ot">&lt;-</span> <span class="fu">quantile</span>(biden_df<span class="sc">$</span>comments, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.50</span>, <span class="fl">0.75</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.99</span>))</span>
-<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(percentiles_biden)</span>
-<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>({</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co">#First selecting posts with "Trump" or "Biden" included in the title of the post</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Filtering the titles that contain Trump</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>trump_df <span class="ot">&lt;-</span> politik_df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"Trump"</span>, title))</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>trump_df<span class="sc">$</span>candidate <span class="ot">&lt;-</span> <span class="st">"Trump"</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Let's check the distribution of number of comments</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>percentiles_trump <span class="ot">&lt;-</span> <span class="fu">quantile</span>(trump_df<span class="sc">$</span>comments, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.50</span>, <span class="fl">0.75</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.99</span>))</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(percentiles_trump)</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Filtering the titles that contain Biden</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>biden_df <span class="ot">&lt;-</span> politik_df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"Biden"</span>, title))</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>biden_df<span class="sc">$</span>candidate <span class="ot">&lt;-</span> <span class="st">"Biden"</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Let's check the distribution of number of comments</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>percentiles_biden <span class="ot">&lt;-</span> <span class="fu">quantile</span>(biden_df<span class="sc">$</span>comments, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.50</span>, <span class="fl">0.75</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.99</span>))</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(percentiles_biden)</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    25%     50%     75%     90%     95%     99% 
   30.50   74.00  206.00  575.40 1052.50 2176.34 
@@ -583,38 +514,38 @@ $ countid    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Selecting the post for Trump and Biden that we will analyze</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Let's choose one post for each presidential candidate</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co">#based on the median number of comments for each</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Trump</span></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>trump_post <span class="ot">&lt;-</span> <span class="fu">subset</span>(trump_df, comments <span class="sc">==</span> <span class="dv">74</span> )</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Biden</span></span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>biden_post <span class="ot">&lt;-</span> <span class="fu">subset</span>(biden_df, comments <span class="sc">==</span> <span class="dv">67</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Selecting the post for Trump and Biden that we will analyze</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Let's choose one post for each presidential candidate</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">#based on the median number of comments for each</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Trump</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>trump_post <span class="ot">&lt;-</span> <span class="fu">subset</span>(trump_df, comments <span class="sc">==</span> <span class="dv">74</span> )</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Biden</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>biden_post <span class="ot">&lt;-</span> <span class="fu">subset</span>(biden_df, comments <span class="sc">==</span> <span class="dv">67</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now I got the 2 main posts, let’s explore a bit those 2 posts.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#merging the previous df's</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>trump_biden_df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(trump_post, biden_post)</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(trump_biden_df<span class="sc">$</span>url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#merging the previous df's</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>trump_biden_df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(trump_post, biden_post)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(trump_biden_df<span class="sc">$</span>url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "https://www.reddit.com/r/politics/comments/1bsdho2/us_election_workers_face_thousands_of_threats_so/"
 [2] "https://www.reddit.com/r/politics/comments/1bsnq6l/are_black_and_brown_voters_really_fleeing_biden/" </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#let's identify these posts in the politik3 df (containing all the details)</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>subset_politik3 <span class="ot">&lt;-</span> politik_df3 <span class="sc">%&gt;%</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>         <span class="fu">filter</span>(url <span class="sc">%in%</span> trump_biden_df<span class="sc">$</span>url)</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co">#creating a new column with the candidate related to the post</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>subset_politik3 <span class="ot">&lt;-</span> subset_politik3 <span class="sc">%&gt;%</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">candidate =</span> <span class="fu">case_when</span>(</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    url <span class="sc">==</span> <span class="st">"https://www.reddit.com/r/politics/comments/1bsdho2/us_election_workers_face_thousands_of_threats_so/"</span> <span class="sc">~</span> <span class="st">"Trump"</span>,</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    url <span class="sc">==</span> <span class="st">"https://www.reddit.com/r/politics/comments/1bsnq6l/are_black_and_brown_voters_really_fleeing_biden/"</span> <span class="sc">~</span> <span class="st">"Biden"</span>,</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  ))</span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="co">#let's see the df now </span></span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(subset_politik3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#let's identify these posts in the politik3 df (containing all the details)</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>subset_politik3 <span class="ot">&lt;-</span> politik_df3 <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>         <span class="fu">filter</span>(url <span class="sc">%in%</span> trump_biden_df<span class="sc">$</span>url)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co">#creating a new column with the candidate related to the post</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>subset_politik3 <span class="ot">&lt;-</span> subset_politik3 <span class="sc">%&gt;%</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">candidate =</span> <span class="fu">case_when</span>(</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    url <span class="sc">==</span> <span class="st">"https://www.reddit.com/r/politics/comments/1bsdho2/us_election_workers_face_thousands_of_threats_so/"</span> <span class="sc">~</span> <span class="st">"Trump"</span>,</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    url <span class="sc">==</span> <span class="st">"https://www.reddit.com/r/politics/comments/1bsnq6l/are_black_and_brown_voters_really_fleeing_biden/"</span> <span class="sc">~</span> <span class="st">"Biden"</span>,</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="co">#let's see the df now </span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(subset_politik3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 119
 Columns: 11
@@ -630,19 +561,19 @@ $ comment_id &lt;chr&gt; "2", "3", "3_1", "3_2", "3_2_1", "3_2_1_1", "3_2_1_1_1"
 $ countid    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
 $ candidate  &lt;chr&gt; "Biden", "Biden", "Biden", "Biden", "Biden", "Biden", "Bide…</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's keep only the relevant columns</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>politik_final <span class="ot">&lt;-</span> <span class="fu">select</span>(subset_politik3, <span class="fu">c</span>(<span class="st">"url"</span>, <span class="st">"author"</span>, <span class="st">"score"</span>, <span class="st">"comment"</span>, <span class="st">"comment_id"</span>, <span class="st">"candidate"</span>))</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Extracting the levels of each comment and its hierarchy</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>politik_final2 <span class="ot">&lt;-</span> politik_final <span class="sc">%&gt;%</span></span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Level =</span> <span class="fu">str_count</span>(comment_id, <span class="at">pattern =</span> <span class="st">"_"</span>) <span class="sc">+</span> <span class="dv">1</span>,  <span class="co"># Count underscores to determine depth</span></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">ParentID =</span> <span class="fu">ifelse</span>(Level <span class="sc">&gt;</span> <span class="dv">1</span>, <span class="fu">sapply</span>(<span class="fu">strsplit</span>(comment_id, <span class="st">"_"</span>), <span class="cf">function</span>(x) <span class="fu">paste</span>(x[<span class="sc">-</span><span class="fu">length</span>(x)], <span class="at">collapse =</span> <span class="st">"_"</span>)), <span class="cn">NA</span>))</span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(politik_final2<span class="sc">$</span>author))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's keep only the relevant columns</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>politik_final <span class="ot">&lt;-</span> <span class="fu">select</span>(subset_politik3, <span class="fu">c</span>(<span class="st">"url"</span>, <span class="st">"author"</span>, <span class="st">"score"</span>, <span class="st">"comment"</span>, <span class="st">"comment_id"</span>, <span class="st">"candidate"</span>))</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Extracting the levels of each comment and its hierarchy</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>politik_final2 <span class="ot">&lt;-</span> politik_final <span class="sc">%&gt;%</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Level =</span> <span class="fu">str_count</span>(comment_id, <span class="at">pattern =</span> <span class="st">"_"</span>) <span class="sc">+</span> <span class="dv">1</span>,  <span class="co"># Count underscores to determine depth</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">ParentID =</span> <span class="fu">ifelse</span>(Level <span class="sc">&gt;</span> <span class="dv">1</span>, <span class="fu">sapply</span>(<span class="fu">strsplit</span>(comment_id, <span class="st">"_"</span>), <span class="cf">function</span>(x) <span class="fu">paste</span>(x[<span class="sc">-</span><span class="fu">length</span>(x)], <span class="at">collapse =</span> <span class="st">"_"</span>)), <span class="cn">NA</span>))</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(politik_final2<span class="sc">$</span>author))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 80</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(politik_final2<span class="sc">$</span>url))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(politik_final2<span class="sc">$</span>url))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
@@ -650,30 +581,30 @@ $ candidate  &lt;chr&gt; "Biden", "Biden", "Biden", "Biden", "Biden", "Biden", "
 <p>Now we got 80 nodes (authors) from the 2 posts.</p>
 <p>Now I am ready to work on this data set.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Rename level column as it represent more how deep/far is the comment</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co">#from the initial post, we will use this later as an attribute</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>politik_final2 <span class="ot">&lt;-</span> politik_final2 <span class="sc">%&gt;%</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">deep =</span> Level)</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="co">#identify who is commenting on the same post</span></span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>politik_final2 <span class="ot">&lt;-</span> politik_final2 <span class="sc">%&gt;%</span></span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">level =</span> <span class="fu">substr</span>(comment_id, <span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>politik_final2<span class="sc">$</span>level <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(politik_final2<span class="sc">$</span>level, <span class="st">"_"</span>, <span class="st">""</span>)</span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>politik_final2 <span class="ot">&lt;-</span> politik_final2 <span class="sc">%&gt;%</span></span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">level2 =</span> <span class="fu">substr</span>(candidate, <span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>politik_final2<span class="sc">$</span>comment_id2 <span class="ot">&lt;-</span> <span class="fu">paste</span>(politik_final2<span class="sc">$</span>level2, politik_final2<span class="sc">$</span>level, <span class="at">sep =</span> <span class="st">"_"</span>)</span>
-<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Now I'll create a new object by keeping only the columns I need</span></span>
-<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>politik_final3 <span class="ot">&lt;-</span> <span class="fu">select</span>(politik_final2, <span class="fu">c</span>(<span class="sc">-</span><span class="st">"comment_id"</span>, <span class="sc">-</span><span class="st">"ParentID"</span>, <span class="sc">-</span><span class="st">"level"</span>, <span class="sc">-</span><span class="st">"level2"</span>))</span>
-<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Will create a attribute only object to use later</span></span>
-<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a>politik_attributes <span class="ot">&lt;-</span> <span class="fu">select</span>(politik_final3, <span class="fu">c</span>(<span class="st">"score"</span>, <span class="st">"candidate"</span>, <span class="st">"deep"</span>))</span>
-<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(politik_attributes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Rename level column as it represent more how deep/far is the comment</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co">#from the initial post, we will use this later as an attribute</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>politik_final2 <span class="ot">&lt;-</span> politik_final2 <span class="sc">%&gt;%</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">deep =</span> Level)</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="co">#identify who is commenting on the same post</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>politik_final2 <span class="ot">&lt;-</span> politik_final2 <span class="sc">%&gt;%</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">level =</span> <span class="fu">substr</span>(comment_id, <span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>politik_final2<span class="sc">$</span>level <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(politik_final2<span class="sc">$</span>level, <span class="st">"_"</span>, <span class="st">""</span>)</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>politik_final2 <span class="ot">&lt;-</span> politik_final2 <span class="sc">%&gt;%</span></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">level2 =</span> <span class="fu">substr</span>(candidate, <span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>politik_final2<span class="sc">$</span>comment_id2 <span class="ot">&lt;-</span> <span class="fu">paste</span>(politik_final2<span class="sc">$</span>level2, politik_final2<span class="sc">$</span>level, <span class="at">sep =</span> <span class="st">"_"</span>)</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Now I'll create a new object by keeping only the columns I need</span></span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>politik_final3 <span class="ot">&lt;-</span> <span class="fu">select</span>(politik_final2, <span class="fu">c</span>(<span class="sc">-</span><span class="st">"comment_id"</span>, <span class="sc">-</span><span class="st">"ParentID"</span>, <span class="sc">-</span><span class="st">"level"</span>, <span class="sc">-</span><span class="st">"level2"</span>))</span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Will create a attribute only object to use later</span></span>
+<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a>politik_attributes <span class="ot">&lt;-</span> <span class="fu">select</span>(politik_final3, <span class="fu">c</span>(<span class="st">"score"</span>, <span class="st">"candidate"</span>, <span class="st">"deep"</span>))</span>
+<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(politik_attributes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
   score candidate  deep
@@ -688,46 +619,47 @@ $ candidate  &lt;chr&gt; "Biden", "Biden", "Biden", "Biden", "Biden", "Biden", "
 </div>
 <p>I’ll prepare the adjacency matrix.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>politik_m <span class="ot">&lt;-</span> <span class="fu">select</span>(politik_final3, <span class="fu">c</span>(<span class="st">"comment_id2"</span>, <span class="st">"author"</span>))</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(politik_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>politik_m <span class="ot">&lt;-</span> <span class="fu">select</span>(politik_final3, <span class="fu">c</span>(<span class="st">"comment_id2"</span>, <span class="st">"author"</span>))</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(politik_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 119
 Columns: 2
 $ comment_id2 &lt;chr&gt; "B_2", "B_3", "B_3", "B_3", "B_3", "B_3", "B_3", "B_3", "B…
 $ author      &lt;chr&gt; "fxkatt", "AngusMcTibbins", "Knoxcore", "Hattopia", "Angus…</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify unique names and codes</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>unique_names <span class="ot">&lt;-</span> <span class="fu">unique</span>(politik_final3<span class="sc">$</span>author)</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>unique_codes <span class="ot">&lt;-</span> <span class="fu">unique</span>(politik_final3<span class="sc">$</span>comment_id2)</span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an empty adjacency matrix</span></span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>adj_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="fu">length</span>(unique_names), <span class="at">ncol =</span> <span class="fu">length</span>(unique_names),</span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">dimnames =</span> <span class="fu">list</span>(unique_names, unique_names))</span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Populate the adjacency matrix based on shared codes</span></span>
-<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(unique_names)) {</span>
-<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(unique_names)) {</span>
-<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Check if names i and j have the same code</span></span>
-<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>    shared_code <span class="ot">&lt;-</span> <span class="fu">intersect</span>(politik_final3<span class="sc">$</span>comment_id2[politik_final3<span class="sc">$</span>author <span class="sc">==</span> unique_names[i]],</span>
-<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>                             politik_final3<span class="sc">$</span>comment_id2[politik_final3<span class="sc">$</span>author <span class="sc">==</span> unique_names[j]])</span>
-<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(shared_code) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a>      adj_matrix[unique_names[i], unique_names[j]] <span class="ot">&lt;-</span> <span class="dv">1</span>  <span class="co"># Set relationship to 1</span></span>
-<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a><span class="co"># I'll eliminate loops in advance</span></span>
-<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(adj_matrix) <span class="ot">&lt;-</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify unique names and codes</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>unique_names <span class="ot">&lt;-</span> <span class="fu">unique</span>(politik_final3<span class="sc">$</span>author)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>unique_codes <span class="ot">&lt;-</span> <span class="fu">unique</span>(politik_final3<span class="sc">$</span>comment_id2)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an empty adjacency matrix</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>adj_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="fu">length</span>(unique_names), <span class="at">ncol =</span> <span class="fu">length</span>(unique_names),</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">dimnames =</span> <span class="fu">list</span>(unique_names, unique_names))</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Populate the adjacency matrix based on shared codes</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(unique_names)) {</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(unique_names)) {</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Check if names i and j have the same code</span></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>    shared_code <span class="ot">&lt;-</span> <span class="fu">intersect</span>(politik_final3<span class="sc">$</span>comment_id2[politik_final3<span class="sc">$</span>author <span class="sc">==</span> unique_names[i]],</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>                             politik_final3<span class="sc">$</span>comment_id2[politik_final3<span class="sc">$</span>author <span class="sc">==</span> unique_names[j]])</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(shared_code) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>      adj_matrix[unique_names[i], unique_names[j]] <span class="ot">&lt;-</span> <span class="dv">1</span>  <span class="co"># Set relationship to 1</span></span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a><span class="co"># I'll eliminate loops in advance</span></span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(adj_matrix) <span class="ot">&lt;-</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now let’s explore the Network</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load packages</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(network)</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sna)</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(statnet)</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>politik.n <span class="ot">&lt;-</span> <span class="fu">network</span>(adj_matrix)</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>politik.n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>({</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co">#load packages</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(network)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sna)</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(statnet)</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>politik.n <span class="ot">&lt;-</span> <span class="fu">network</span>(adj_matrix)</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>politik.n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Network attributes:
   vertices = 80 
@@ -748,28 +680,28 @@ No edge attributes</code></pre>
 </div>
 <p>We got 80 nodes and 316 edges.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Dyads and Triads census</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>sna<span class="sc">::</span><span class="fu">dyad.census</span>(politik.n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Dyads and Triads census</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>sna<span class="sc">::</span><span class="fu">dyad.census</span>(politik.n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     Mut Asym Null
 [1,] 158    0 3002</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>sna<span class="sc">::</span><span class="fu">triad.census</span>(politik.n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>sna<span class="sc">::</span><span class="fu">triad.census</span>(politik.n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       003 012   102 021D 021U 021C 111D 111U 030T 030C 201 120D 120U 120C 210
 [1,] 70689   0 10955    0    0    0    0    0    0    0 179    0    0    0   0
      300
 [1,] 337</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(sna<span class="sc">::</span><span class="fu">triad.census</span>(politik.n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(sna<span class="sc">::</span><span class="fu">triad.census</span>(politik.n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 82160</code></pre>
 </div>
 </div>
 <p>Seems that we have 82160 triads in total!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co">#transitivity</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gtrans</span>(politik.n, <span class="at">mode=</span><span class="st">"graph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co">#transitivity</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gtrans</span>(politik.n, <span class="at">mode=</span><span class="st">"graph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8495798</code></pre>
 </div>
@@ -777,8 +709,8 @@ No edge attributes</code></pre>
 <p>The transitivity coefficient is 0.85 which indicates a high level of cohesion.</p>
 <p>Let’s see the density</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get network density: statnet</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>network<span class="sc">::</span><span class="fu">network.density</span>(politik.n) <span class="co">#already exclude loops</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get network density: statnet</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>network<span class="sc">::</span><span class="fu">network.density</span>(politik.n) <span class="co">#already exclude loops</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.05</code></pre>
 </div>
@@ -787,8 +719,8 @@ No edge attributes</code></pre>
 <p>This combination of high transitivity and low density might suggests the presence of strong community structure in the network, where nodes are densely connected within their respective communities but sparsely connected between communities.</p>
 <p>Let’s visualize the network</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the network</span></span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(politik.n, <span class="at">displaylabels =</span> <span class="cn">TRUE</span>, <span class="at">label.cex=</span><span class="fl">0.7</span>, <span class="at">vertex.cex=</span><span class="fl">1.5</span>, <span class="at">displayisolates=</span>T, <span class="at">main =</span> <span class="st">"Authors Network"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the network</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(politik.n, <span class="at">displaylabels =</span> <span class="cn">TRUE</span>, <span class="at">label.cex=</span><span class="fl">0.7</span>, <span class="at">vertex.cex=</span><span class="fl">1.5</span>, <span class="at">displayisolates=</span>T, <span class="at">main =</span> <span class="st">"Authors Network"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -799,8 +731,8 @@ No edge attributes</code></pre>
 </div>
 <p>Without isolated nodes</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the network</span></span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(politik.n, <span class="at">displaylabels =</span> <span class="cn">TRUE</span>, <span class="at">label.cex=</span><span class="fl">0.7</span>, <span class="at">vertex.cex=</span><span class="fl">1.5</span>, <span class="at">displayisolates=</span>F, <span class="at">main =</span> <span class="st">"Authors Network"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the network</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(politik.n, <span class="at">displaylabels =</span> <span class="cn">TRUE</span>, <span class="at">label.cex=</span><span class="fl">0.7</span>, <span class="at">vertex.cex=</span><span class="fl">1.5</span>, <span class="at">displayisolates=</span>F, <span class="at">main =</span> <span class="st">"Authors Network"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -811,16 +743,16 @@ No edge attributes</code></pre>
 </div>
 <p>Let’s now include the Candidate as attribute</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co">#First I'll create a column with female-male true-false attribute</span></span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>politik_attributes2 <span class="ot">&lt;-</span> politik_attributes <span class="sc">%&gt;%</span></span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">biden =</span> <span class="fu">if_else</span>(candidate <span class="sc">==</span> <span class="st">"Biden"</span>, <span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>)</span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a><span class="co">#now let's see how females and males are interacting</span></span>
-<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>nodeColors<span class="ot">&lt;-</span><span class="fu">ifelse</span>(politik_attributes2<span class="sc">$</span>biden,<span class="st">"dodgerblue"</span>,<span class="st">"red"</span>)</span>
-<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(politik.n,<span class="at">displaylabels=</span>F,<span class="at">vertex.col=</span>nodeColors,<span class="at">vertex.cex=</span><span class="dv">2</span>, <span class="at">displayisolates=</span>T) <span class="co">#including isolated nodes</span></span>
-<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"bottomright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Biden"</span>, <span class="st">"Trump"</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"dodgerblue"</span>, <span class="st">"red"</span>), <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">21</span>), <span class="at">title =</span> <span class="st">"Node Type"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co">#First I'll create a column with female-male true-false attribute</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>politik_attributes2 <span class="ot">&lt;-</span> politik_attributes <span class="sc">%&gt;%</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">biden =</span> <span class="fu">if_else</span>(candidate <span class="sc">==</span> <span class="st">"Biden"</span>, <span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>)</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a><span class="co">#now let's see how females and males are interacting</span></span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>nodeColors<span class="ot">&lt;-</span><span class="fu">ifelse</span>(politik_attributes2<span class="sc">$</span>biden,<span class="st">"dodgerblue"</span>,<span class="st">"red"</span>)</span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(politik.n,<span class="at">displaylabels=</span>F,<span class="at">vertex.col=</span>nodeColors,<span class="at">vertex.cex=</span><span class="dv">2</span>, <span class="at">displayisolates=</span>T) <span class="co">#including isolated nodes</span></span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"bottomright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Biden"</span>, <span class="st">"Trump"</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"dodgerblue"</span>, <span class="st">"red"</span>), <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">21</span>), <span class="at">title =</span> <span class="st">"Node Type"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -830,8 +762,8 @@ No edge attributes</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(politik.n,<span class="at">displaylabels=</span>F,<span class="at">vertex.col=</span>nodeColors,<span class="at">vertex.cex=</span><span class="dv">2</span>, <span class="at">displayisolates=</span>F) <span class="co">#excluding isolated nodes</span></span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"bottomright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Biden"</span>, <span class="st">"Trump"</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"dodgerblue"</span>, <span class="st">"red"</span>), <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">21</span>), <span class="at">title =</span> <span class="st">"Node Type"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(politik.n,<span class="at">displaylabels=</span>F,<span class="at">vertex.col=</span>nodeColors,<span class="at">vertex.cex=</span><span class="dv">2</span>, <span class="at">displayisolates=</span>F) <span class="co">#excluding isolated nodes</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"bottomright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Biden"</span>, <span class="st">"Trump"</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"dodgerblue"</span>, <span class="st">"red"</span>), <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">21</span>), <span class="at">title =</span> <span class="st">"Node Type"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
