@@ -347,12 +347,12 @@ diag(adj_matrix) <- 0
 Now let's explore the Network
 
 ```{r message = FALSE}
-
+suppressWarnings({
 #load packages
 library(network)
 library(sna)
 library(statnet)
-
+})
 politik.n <- network(adj_matrix)
 politik.n
 
