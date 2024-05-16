@@ -21,7 +21,7 @@ format:
 editor: visual
 ---
 
-## Final Project 695N - Network on subreddit r/politics
+## Final Project 695N - Network Analysis on subreddit r/politics
 
 ### Introduction
 
