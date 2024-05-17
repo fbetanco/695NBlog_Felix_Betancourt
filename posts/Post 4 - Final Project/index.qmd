@@ -25,7 +25,7 @@ editor: visual
 
 ### Introduction
 
-Social media, including Reddit, serves as a prominent platform for discourse and community engagement (Bonneau et al., 2013; Jungherr et al., 2012). The "Politics" subreddit (r/politics) is a hub for discussions on political matters, attracting users who share news articles and express opinions (Bail, 2016).
+Social media, including Reddit, serves as a prominent platform for discourse and community engagement. The "Politics" subreddit (r/politics) is a hub for discussions on political matters, attracting users who share news articles and express opinions (Bail, 2016).
 
 In recent years, Reddit discussions have intensified, especially regarding U.S. politics, notably around Joe Biden and Donald Trump. Analyzing user interactions in r/politics offers insight into digital political landscapes (Conover et al., 2013).
 
@@ -620,7 +620,6 @@ It looks like while we have 2 main communities the nodes with highest degree cen
 
 It seems like that group of authors are close among them and at the same time are central in the network.
 
-
 ##### Sentiment Analysis and the Network
 
 Lastly let's add a new attribute to the network using text analysis, in particular sentiment analysis.
@@ -675,16 +674,20 @@ From this chart it looks like:
 
 ### Conclusion
 
-1. The network was found to be sparse (low density) but highly interconnected within subgroups (high transitivity), suggesting the presence of distinct communities.
+1.  The network was found to be sparse (low density) but highly interconnected within subgroups (high transitivity), suggesting the presence of distinct communities.
 
-2. The visualization of the network confirmed the presence of communities, showing separate clusters of users commenting on Biden and Trump posts. The network was divided into 37 distinct clusters, indicating multiple smaller communities within the larger Biden and Trump-focused groups.
+2.  The visualization of the network confirmed the presence of communities, showing separate clusters of users commenting on Biden and Trump posts. The network was divided into 37 distinct clusters, indicating multiple smaller communities within the larger Biden and Trump-focused groups.
 
-3. The hypothesis that users with higher scores (more upvotes or higher score) would also have more central positions in the network was not supported. The correlation between score and centrality was negligible.
+3.  The hypothesis that users with higher scores (more upvotes or higher score) would also have more central positions in the network was not supported. The correlation between score and centrality was negligible.
 
-4. While score wasn't a strong indicator of influence, degree centrality (number of connections) was used to identify the most connected users. These users may play important roles in shaping discussions within their respective communities.
+4.  While score wasn't a strong indicator of influence, degree centrality (number of connections) was used to identify the most connected users. These users may play important roles in shaping discussions within their respective communities.
 
-5. In terms of the sentiment analysis it seems that most comments were neutral or negative. And, users with similar sentiments tended to interact with each other.
+5.  In terms of the sentiment analysis it seems that most comments were neutral or negative. And, users with similar sentiments tended to interact with each other.
 
 This Network Analysis research offers interesting insights into the social dynamics of a politically charged online community. It highlights the presence of distinct communities, the complex interplay between user engagement (score) and influence (centrality), and the opportunity for further exploration of the factors shaping political discourse on platforms like Reddit.
 
+### References
 
+Bail C. A. (2016). Combining natural language processing and network analysis to examine how advocacy organizations stimulate conversation on social media. Proceedings of the National Academy of Sciences of the United States of America, 113(42), 11823--11828. https://doi.org/10.1073/pnas.1607151113
+
+Conover, M., Ratkiewicz, J., Francisco, M., Goncalves, B., Menczer, F., & Flammini, A. (2021). Political Polarization on Twitter. Proceedings of the International AAAI Conference on Web and Social Media, 5(1), 89-96. https://doi.org/10.1609/icwsm.v5i1.14126
